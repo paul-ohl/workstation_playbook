@@ -1,0 +1,21 @@
+- name: Check if the dotfiles directory exists on the user
+  stat:
+    path: "{{ ansible_env.HOME }}/dotfiles"
+  register: dotfiles_directory
+
+- name: Generate keypair to add to github account
+  import_tasks: ssh_keygen.yml
+  when: not dotfiles_directory.stat.exists
+
+- name: Clone my dotfiles on the machine
+  ansible.builtin.git:
+    repo: git@github.com:paul-ohl/dotfiles.git
+    depth: 1
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+    dest: "{{ ansible_env.HOME }}/dotfiles"
+
+- name: Run stow
+  loop: "{{ stowed_directories }}"
+  shell: "stow -d {{ ansible_env.HOME }}/dotfiles --verbose=2 {{ item }}"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'

@@ -1,0 +1,22 @@
+- name: Generate an OpenSSH keypair with the default values
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+
+- name: Print url and instructions
+  debug:
+    msg:
+      - "Please go to the following url: https://github.com/settings/keys"
+      - "And add a new SSH key with the following key:"
+
+- name: Get public key
+  shell: "cat {{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+  register: id_rsa_output
+
+- name: Print public key
+  debug:
+    msg: "{{ id_rsa_output.stdout }}"
+
+- name: Pause execution to let the user add the key to github
+  pause:
+    prompt: "The execution is now paused, press enter once you have added the public key to github"
+    echo: yes

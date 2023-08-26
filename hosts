@@ -1,0 +1,2 @@
+[home]
+local ansible_host=localhost ansible_user=pohl ansible_connection=local

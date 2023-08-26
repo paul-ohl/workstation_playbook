@@ -1,0 +1,56 @@
+username: pohl
+
+stowed_directories:
+  - custom_scripts
+  - git
+  - kmonad
+  - neovim
+  - zathura
+  - zsh
+
+packages:
+  - clang
+  - curl
+  - git
+  - kitty
+  - neovim
+  - nodejs
+  - openssl
+  - stack
+  - stow
+  - vim
+  - wget
+  - zsh
+cargo_packages:
+  - bacon
+  - bat
+  - du-dust
+  - exa
+  - pomors
+  - ripgrep
+  - sccache
+flatpak_packages:
+  # - org.audacityteam.Audacity
+  # - org.blender.Blender
+  - com.spotify.Client
+  - com.discordapp.Discord
+  - org.filezillaproject.Filezilla
+  # - org.gimp.GIMP
+  # - org.kde.kdenlive
+  - md.obsidian.Obsidian
+  - com.getpostman.Postman
+  # - org.qbittorrent.qBittorrent
+  # - com.slack.Slack
+  # - com.valvesoftware.Steam
+  # - com.github.IsmaelMartinez.teams_for_linux
+  # - com.github.micahflee.torbrowser-launcher
+  # - org.videolan.VLC
+  # - us.zoom.Zoom
+
+# Geerlingguy's roles variables
+pip_install_packages:
+  - name: docker
+  - name: pynvim
+docker_edition: "ce"
+docker_users:
+  - "{{ username }}"

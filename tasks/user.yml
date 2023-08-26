@@ -1,0 +1,4 @@
+- name: Create or modify user
+  user:
+    name: "{{ username }}"
+    shell: /usr/bin/zsh

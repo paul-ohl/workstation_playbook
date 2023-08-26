@@ -14,6 +14,4 @@ ansible-playbook -K run.yml
 
 ## TODO
 
-- Fix issue with aptitude not reading dicts
-- Cargo install checker is disgustingly made, fix it
-- Put the rust toolchain install in a role
+- Install kmonad (check [this](https://github.com/kmonad/kmonad/blob/master/doc/installation.md#using-docker) out)

@@ -1,0 +1,9 @@
+- name: Update packages
+  dnf:
+    name: "*"
+    state: latest
+
+- name: Install essential packages
+  dnf:
+    name: "{{ packages }}"
+    state: latest
