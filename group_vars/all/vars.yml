@@ -16,7 +16,6 @@ packages:
   - neovim
   - nodejs
   - openssl
-  - stack
   - stow
   - vim
   - wget

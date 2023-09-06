@@ -1,13 +1,16 @@
 ---
 - hosts: all
-  pre_tasks:
-    - import_tasks: tasks/update_and_install.yml
-      become: yes
+  become: yes
+
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+
+- hosts: all
 
   roles:
     - dotfiles
-    - geerlingguy.pip
-    - geerlingguy.docker
 
   tasks:
     - import_tasks: tasks/user.yml
