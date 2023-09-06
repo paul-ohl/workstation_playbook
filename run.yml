@@ -15,3 +15,4 @@
   tasks:
     - import_tasks: tasks/user.yml
     - import_tasks: tasks/rustup.yml # important: do not "become: yes" on this task
+    - import_tasks: tasks/install_kmonad.yml

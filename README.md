@@ -14,4 +14,7 @@ ansible-playbook -K run.yml
 
 ## TODO
 
-- Install kmonad (check [this](https://github.com/kmonad/kmonad/blob/master/doc/installation.md#using-docker) out)
+- Install kmonad, resources:
+    - https://github.com/kmonad/kmonad/blob/master/doc/installation.md#using-docker
+    - https://docs.ansible.com/ansible/latest/collections/community/docker/docker_image_module.html
+    - https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html
