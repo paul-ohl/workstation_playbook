@@ -1,0 +1,13 @@
+- name: Check if kmonad_builder image exists
+  docker_image_info:
+    name: hello-world
+  register: docker_image
+
+- name: Check if the kmonad binary exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/kmonad"
+  register: binary
+
+- name: Print return information from the previous task
+  ansible.builtin.debug:
+    msg: "Result: {{ docker_image.images | length == 1 }}"
