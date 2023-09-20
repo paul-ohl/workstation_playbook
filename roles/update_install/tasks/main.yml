@@ -2,10 +2,6 @@
   include_tasks: fedora.yml
   when: ansible_distribution == "Fedora"
 
-- name: Update and install in MacOS
-  import_tasks: macos.yml
-  when: ansible_distribution == "MacOSX"
-
 - name: Update and install in Arch Linux
   import_tasks: arch.yml
   when: ansible_distribution == "Archlinux" or ansible_distribution == "Arch Linux"

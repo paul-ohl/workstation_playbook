@@ -1,13 +1,36 @@
-- name: Check if kmonad_builder image exists
-  docker_image_info:
-    name: hello-world
-  register: docker_image
-
 - name: Check if the kmonad binary exists
   stat:
     path: "{{ ansible_env.HOME }}/.local/bin/kmonad"
   register: binary
 
-- name: Print return information from the previous task
-  ansible.builtin.debug:
-    msg: "Result: {{ docker_image.images | length == 1 }}"
+- name: Make sure destination folder exists
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+    state: directory
+    mode: '0744'
+  when: not binary.stat.exists
+
+- name: Make sure the ~/.ssh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: '0700'
+  when: not binary.stat.exists
+
+- name: Add github.com to known_hosts
+  known_hosts:
+    path: "{{ ansible_env.HOME }}/.ssh/known_hosts"
+    name: github.com
+    key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
+  when: not binary.stat.exists
+
+- name: Clone kmonad on the machine
+  git:
+    repo: https://github.com/kmonad/kmonad.git
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+  when: not binary.stat.exists
+
+- name: Build and install stack
+  shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path {{ ansible_env.HOME }}/.local/bin/kmonad)"
+  when: not binary.stat.exists

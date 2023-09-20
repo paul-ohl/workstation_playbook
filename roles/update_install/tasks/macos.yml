@@ -1,6 +1,0 @@
-- name: Install essential packages and upgrade everything
-  community.general.homebrew:
-    name: "{{ packages }}"
-    state: present
-    update_homebrew: true
-    upgrade_all: true

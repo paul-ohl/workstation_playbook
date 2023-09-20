@@ -14,10 +14,11 @@ ansible-playbook -K run.yml
 
 ## TODO
 
-- Install kmonad, resources:
-    - https://github.com/kmonad/kmonad/blob/master/doc/installation.md#using-docker
-    - https://docs.ansible.com/ansible/latest/collections/community/docker/docker_image_module.html
-    - https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html
 - Install [Mononoki nerd font](https://objects.githubusercontent.com/github-production-release-asset-2e65be/27574418/6334d989-e832-4578-a511-54ef1848d66d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230905%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230905T084152Z&X-Amz-Expires=300&X-Amz-Signature=ee65174dc49ac82523038486e74aecc04d79496c0b193537bbe88f594e267e72&X-Amz-SignedHeaders=host&actor_id=37795294&key_id=0&repo_id=27574418&response-content-disposition=attachment%3B%20filename%3DMononoki.zip&response-content-type=application%2Foctet-stream)
-    - It goes in `~/.local/share/fonts`
+    - It goes in `/usr/share/fonts`
     - The ideal font size is 16
+
+- Follow instructions from the file ref.md
+
+- Install cargo packages with the shell command, and use `changed_when: 'result.std is search("Something")'` to check for change
+    - Install `sccache` before everything else to enjoy its powers! And launch the command with sccache (`RUSTC_WRAPPER='sccache'`)
