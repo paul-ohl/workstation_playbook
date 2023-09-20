@@ -1,4 +1,7 @@
+# Default password is 'asdf', remember to change it...
 - name: Create or modify user
   user:
     name: "{{ username }}"
-    shell: /usr/bin/zsh
+    shell: "/usr/bin/zsh"
+    update_password: "on_create"
+    password: "$6$rOt.6TwRIRjD9isy$dkArTM1.eyN1YBAwVkxhSost.LdmKqVKCqGwx/tlA7gVmixDOehIrSvcJ3a2V8OY5m62fuN75JBTm1brFwlrT."

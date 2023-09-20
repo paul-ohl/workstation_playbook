@@ -1,0 +1,11 @@
+- name: Update packages
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+    register: result
+    changed_when: result.packages | length > 0
+
+- name: Install essential packages
+  community.general.pacman:
+    name: "{{ packages }}"
+    state: present
