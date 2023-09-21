@@ -1,0 +1,5 @@
+- name: Install kmonad-bin from the AUR
+  kewlfft.aur.aur:
+    name: kmonad-bin
+    use: paru
+    state: present
