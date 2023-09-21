@@ -1,0 +1,18 @@
+- name: Add github.com to known_hosts
+  ansible.builtin.known_hosts:
+    path: "{{ ansible_env.HOME }}/.ssh/known_hosts"
+    name: github.com
+    key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
+
+- name: Clone my dotfiles on the machine
+  ansible.builtin.git:
+    repo: git@github.com:paul-ohl/dotfiles.git
+    depth: 1
+    key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+    dest: "{{ ansible_env.HOME }}/dotfiles"
+
+- name: Run stow
+  loop: "{{ stowed_directories }}"
+  shell: "stow -d {{ ansible_env.HOME }}/dotfiles --verbose=2 {{ item }}"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'

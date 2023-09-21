@@ -3,18 +3,23 @@ username: pohl
 stowed_directories:
   - custom_scripts
   - git
+  - hyprland
   - kmonad
   - neovim
-  - zathura
   - zsh
 
 packages:
+  - alsa-lib-devel
   - clang
   - curl
+  - firefox
+  - flatpak
   - git
   - kitty
+  - lld
   - nodejs
   - openssl
+  - openssl-devel
   - stack
   - stow
   - vim
@@ -28,6 +33,7 @@ cargo_packages:
   - pomors
   - ripgrep
   - sccache
+  - cargo-watch
 flatpak_packages:
   # - org.audacityteam.Audacity
   # - org.blender.Blender

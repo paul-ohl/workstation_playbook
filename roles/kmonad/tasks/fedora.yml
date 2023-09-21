@@ -1,0 +1,29 @@
+- name: Make sure build folder exists
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+    state: directory
+    mode: '0744'
+
+- name: Clone kmonad on the machine
+  git:
+    repo: https://github.com/kmonad/kmonad.git
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+
+- name: Build and install stack
+  shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path /usr/bin/kmonad)"
+  become: yes
+
+- name: Copy service file to systemd folder
+  copy:
+    src: "{{ ansible_env.HOME }}/dotfiles/kmonad/.config/kmonad/kmonad.service"
+    dest: /etc/systemd/system/
+    remote_src: yes
+
+- name: Setup systemd
+  systemd:
+    name: kmonad.service
+    daemon_reload: true
+    enabled: true
+    state: started
+  become: yes

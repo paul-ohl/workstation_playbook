@@ -1,0 +1,12 @@
+- name: Check if the kmonad binary exists
+  stat:
+    path: "/usr/bin/kmonad"
+  register: binary
+
+- name: Install kmonad in Fedora
+  include_tasks: fedora.yml
+  when: ansible_distribution == "Fedora" and not binary.stat.exists
+
+- name: Install kmonad in Arch Linux
+  import_tasks: arch.yml
+  when: ansible_distribution == "Archlinux" or ansible_distribution == "Arch Linux"

@@ -9,3 +9,45 @@
   community.general.pacman:
     name: "{{ packages }}"
     state: present
+
+- name: Install flatpaks
+  community.general.flatpak:
+    name: "{{ flatpak_packages }}"
+    state: present
+
+- name: Install base-devel, required to install paru
+  community.general.pacman:
+    name: base-devel
+    state: present
+
+- name: Make sure destination folder exists
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/git/"
+    state: directory
+    mode: '0744'
+
+- name: Make sure the ~/.ssh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: '0700'
+
+- name: Add github.com to known_hosts
+  known_hosts:
+    path: "{{ ansible_env.HOME }}/.ssh/known_hosts"
+    name: github.com
+    key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
+
+- name: Clone paru on the machine
+  git:
+    repo: https://aur.archlinux.org/paru.git
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.local/git/paru"
+
+- name: Install paru
+  kewlfft.aur.aur:
+    local_pkgbuild: "{{ ansible_env.HOME }}/.local/git/paru"
+    use: makepkg
+    state: present
+  become: yes
+  become_user: "{{ username }}"

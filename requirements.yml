@@ -1,2 +1,6 @@
-- src: geerlingguy.pip
-- src: geerlingguy.docker
+collections:
+  - name: kewlfft.aur
+
+roles:
+  - src: geerlingguy.pip
+  - src: geerlingguy.docker
