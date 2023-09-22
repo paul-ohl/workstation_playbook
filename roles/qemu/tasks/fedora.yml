@@ -2,19 +2,3 @@
   ansible.builtin.dnf:
     name: qemu
     state: present
-
-- name: Ensure libvirtd service is started and enabled
-  ansible.builtin.systemd:
-    name: libvirtd.service
-    enabled: true
-    state: started
-
-- name: Add user to virtualisation groups
-  ansible.builtin.user:
-    name: "{{ username }}"
-    groups:
-      - libvirt
-      - kvm
-      - input
-      - disk
-    append: true

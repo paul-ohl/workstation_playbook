@@ -6,3 +6,19 @@
 - name: Install QEMU on Arch Linux
   ansible.builtin.import_tasks: arch.yml
   when: ansible_distribution == "Archlinux"
+
+- name: Ensure libvirtd service is started and enabled
+  ansible.builtin.systemd:
+    name: libvirtd.service
+    enabled: true
+    state: started
+
+- name: Add user to virtualisation groups
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups:
+      - libvirt
+      - kvm
+      - input
+      - disk
+    append: true
