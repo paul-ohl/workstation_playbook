@@ -21,3 +21,4 @@ ansible-playbook -K playbook.yml
 - Use handler files when applicable
     - source: https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#task-and-handler-organization-for-a-role
 - Make some packages mandatory, others optional in the variables
+- Add a "User setup" with user, ssh and sudo configuration. Retrieve ssh stuff from servers

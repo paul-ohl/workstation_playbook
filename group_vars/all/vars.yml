@@ -12,6 +12,9 @@ stowed_directories:
   - neovim
   - zsh
 
+# Install QEMU
+qemu_install: false
+
 packages:
   - alsa-lib-devel
   - clang

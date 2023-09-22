@@ -1,24 +1,7 @@
----
-- name: Install QEMU on Fedora
-  ansible.builtin.include_tasks: fedora.yml
-  when: ansible_distribution == "Fedora"
+- name: Check if should install QEMU
+  ansible.builtin.set_fact:
+    shoud_install: "{{ qemu_install }}"
 
-- name: Install QEMU on Arch Linux
-  ansible.builtin.import_tasks: arch.yml
-  when: ansible_distribution == "Archlinux"
-
-- name: Ensure libvirtd service is started and enabled
-  ansible.builtin.systemd:
-    name: libvirtd.service
-    enabled: true
-    state: started
-
-- name: Add user to virtualisation groups
-  ansible.builtin.user:
-    name: "{{ username }}"
-    groups:
-      - libvirt
-      - kvm
-      - input
-      - disk
-    append: true
+- name: Install QEMU
+  ansible.builtin.import_tasks: os_dispatch.yml
+  when: qemu_install == "true"

@@ -1,2 +1,2 @@
 ---
-# defaults file for qemu
+qemu_install: true
