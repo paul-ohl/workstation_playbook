@@ -7,8 +7,3 @@
   dnf:
     name: "{{ packages }}"
     state: latest
-
-- name: Install flatpaks
-  community.general.flatpak:
-    name: "{{ flatpak_packages }}"
-    state: present

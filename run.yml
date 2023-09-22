@@ -11,6 +11,9 @@
     - geerlingguy.docker
     - update_install
 
+  tasks:
+    - import_tasks: tasks/mononoki.yml
+
 # Stuff without sudo
 - hosts: all
   become_user: "{{ username }}"

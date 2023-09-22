@@ -16,9 +16,8 @@
 
 - name: Copy service file to systemd folder
   copy:
-    src: "{{ ansible_env.HOME }}/dotfiles/kmonad/.config/kmonad/kmonad.service"
+    src: "{{ lookup('ansible.builtin.file', 'kmonad.service') }}"
     dest: /etc/systemd/system/
-    remote_src: yes
 
 - name: Setup systemd
   systemd:

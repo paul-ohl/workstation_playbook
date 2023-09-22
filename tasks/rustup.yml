@@ -31,20 +31,7 @@
   register: result
   changed_when: 'result.stdout is search("installing")'
 
-- name: Check if sccache is installed
-  stat:
-    path: "{{ ansible_env.HOME }}/.cargo/bin/sccache"
-  register: sccache_exists
-
-- name: Install sccache first
-  community.general.cargo:
-    name: "sccache"
-    state: latest
-  when: not sccache_exists.stat.exists
-
 - name: Install cargo packages
   community.general.cargo:
     name: "{{ cargo_packages }}"
     state: latest
-  environment:
-    RUSTC_WRAPPER: "{{ ansible_env.HOME }}/.cargo/bin/sccache"
