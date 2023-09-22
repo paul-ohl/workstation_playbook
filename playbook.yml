@@ -10,6 +10,7 @@
     - geerlingguy.pip
     - geerlingguy.docker
     - update_install
+    - qemu
 
   tasks:
     - import_tasks: tasks/mononoki.yml

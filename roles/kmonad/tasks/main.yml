@@ -3,10 +3,10 @@
     path: "/usr/bin/kmonad"
   register: binary
 
-- name: Install kmonad in Fedora
+- name: Install kmonad on Fedora
   ansible.builtin.include_tasks: fedora.yml
   when: ansible_distribution == "Fedora" and not binary.stat.exists
 
-- name: Install kmonad in Arch Linux
+- name: Install kmonad on Arch Linux
   ansible.builtin.import_tasks: arch.yml
   when: ansible_distribution == "Archlinux" or ansible_distribution == "Arch Linux"

@@ -1,0 +1,8 @@
+---
+- name: Install QEMU on Fedora
+  ansible.builtin.include_tasks: fedora.yml
+  when: ansible_distribution == "Fedora"
+
+- name: Install QEMU on Arch Linux
+  ansible.builtin.import_tasks: arch.yml
+  when: ansible_distribution == "Archlinux"

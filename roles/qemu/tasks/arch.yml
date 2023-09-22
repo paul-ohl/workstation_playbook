@@ -1,0 +1,4 @@
+- name: Install dependencies
+  community.general.pacman:
+    name: qemu-full
+    state: present
