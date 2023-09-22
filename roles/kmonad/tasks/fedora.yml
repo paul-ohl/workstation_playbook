@@ -1,6 +1,12 @@
 - name: Make sure build folder exists
   ansible.builtin.file:
-    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+    dest: "{{ ansible_env.HOME }}/.local/git/"
+    state: directory
+    mode: '0744'
+
+- name: Make sure install folder exists
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/bin/"
     state: directory
     mode: '0744'
 
@@ -10,14 +16,22 @@
     depth: 1
     dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
 
-- name: Build kmonad with stack
-  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack build)"
+- name: Build and install kmonad with stack
+  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path {{ ansible_env.HOME }}/.local/bin/)"
+
+- name: Copy kmonad binary to systemd folder
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/.local/bin/kmonad"
+    dest: /usr/bin/kmonad
+    mode: "755"
+  become: true
 
 - name: Copy service file to systemd folder
   ansible.builtin.copy:
-    src: "{{ lookup('ansible.builtin.file', 'kmonad.service') }}"
+    src: files/kmonad.service
     dest: /etc/systemd/system/
     mode: "755"
+  become: true
 
 - name: Setup systemd
   ansible.builtin.systemd:
