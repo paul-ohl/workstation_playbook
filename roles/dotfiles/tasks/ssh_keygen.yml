@@ -9,20 +9,21 @@
     path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
 
 - name: Print url and instructions
-  debug:
+  ansible.builtin.debug:
     msg:
       - "Please go to the following url: https://github.com/settings/keys"
       - "And add a new SSH key with the following key:"
 
 - name: Get public key
-  shell: "cat {{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+  ansible.builtin.shell: "cat {{ ansible_env.HOME }}/.ssh/id_rsa.pub"
   register: id_rsa_output
+  changed_when: false
 
 - name: Print public key
-  debug:
+  ansible.builtin.debug:
     msg: "{{ id_rsa_output.stdout }}"
 
 - name: Pause execution to let the user add the key to github
-  pause:
+  ansible.builtin.pause:
     prompt: "The execution is now paused, press enter once you have added the public key to github"
-    echo: yes
+    echo: true
