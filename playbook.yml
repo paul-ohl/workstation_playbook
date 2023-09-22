@@ -16,7 +16,6 @@
 
 # Stuff without sudo
 - hosts: all
-  become_user: "{{ username }}"
 
   roles:
     - dotfiles
