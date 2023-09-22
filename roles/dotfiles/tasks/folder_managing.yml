@@ -4,25 +4,12 @@
     name: github.com
     key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
 
-- name: Check if the user has added keys to github
-  ansible.builtin.shell: "ssh -T git@github.com"
-  register: github_auth
-  changed_when: false
-
-- name: Clone my dotfiles on the machine in https
-  ansible.builtin.git:
-    repo: https://github.com/paul-ohl/dotfiles.git
-    depth: 1
-    dest: "{{ ansible_env.HOME }}/dotfiles"
-  when: 'not github_auth.stderr is search("success")'
-
 - name: Clone my dotfiles on the machine in ssh
   ansible.builtin.git:
-    repo: git@github.com:paul-ohl/dotfiles.git
+    repo: "{{ dotfiles_url }}"
     depth: 1
     key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
     dest: "{{ ansible_env.HOME }}/dotfiles"
-  when: 'github_auth.stderr is search("success")'
 
 - name: Run stow
   loop: "{{ stowed_directories }}"

@@ -1,5 +1,7 @@
 username: pohl
 
+dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
+
 stowed_directories:
   - custom_scripts
   - git
