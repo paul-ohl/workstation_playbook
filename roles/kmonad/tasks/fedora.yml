@@ -10,9 +10,8 @@
     depth: 1
     dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
 
-- name: Build and install stack
-  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path /usr/bin/kmonad)"
-  become: true
+- name: Build kmonad with stack
+  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack build)"
 
 - name: Copy service file to systemd folder
   ansible.builtin.copy:

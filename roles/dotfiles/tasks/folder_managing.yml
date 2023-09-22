@@ -4,7 +4,7 @@
     name: github.com
     key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
 
-- name: Clone my dotfiles on the machine in ssh
+- name: Clone my dotfiles on the machine
   ansible.builtin.git:
     repo: "{{ dotfiles_url }}"
     depth: 1

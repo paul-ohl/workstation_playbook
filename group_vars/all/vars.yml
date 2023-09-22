@@ -1,7 +1,9 @@
 username: pohl
 
-dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
+# Uncomment this to change the dotfiles repo cloned
+# dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
 
+# Which directories to stow in the dotfiles repo
 stowed_directories:
   - custom_scripts
   - git
