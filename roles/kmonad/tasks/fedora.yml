@@ -5,24 +5,25 @@
     mode: '0744'
 
 - name: Clone kmonad on the machine
-  git:
+  ansible.builtin.git:
     repo: https://github.com/kmonad/kmonad.git
     depth: 1
     dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
 
 - name: Build and install stack
-  shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path /usr/bin/kmonad)"
-  become: yes
+  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path /usr/bin/kmonad)"
+  become: true
 
 - name: Copy service file to systemd folder
-  copy:
+  ansible.builtin.copy:
     src: "{{ lookup('ansible.builtin.file', 'kmonad.service') }}"
     dest: /etc/systemd/system/
+    mode: "755"
 
 - name: Setup systemd
-  systemd:
+  ansible.builtin.systemd:
     name: kmonad.service
     daemon_reload: true
     enabled: true
     state: started
-  become: yes
+  become: true

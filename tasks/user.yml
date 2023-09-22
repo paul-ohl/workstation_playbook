@@ -1,6 +1,6 @@
 # Default password is 'asdf', remember to change it...
 - name: Create or modify user
-  user:
+  ansible.builtin.user:
     name: "{{ username }}"
     shell: "/usr/bin/zsh"
     update_password: "on_create"

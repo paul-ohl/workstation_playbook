@@ -1,5 +1,5 @@
 - name: Check if Mononoki is installed
-  stat:
+  ansible.builtin.stat:
     path: "/usr/share/fonts/Mononoki/"
   register: mononoki_exists
 
@@ -13,6 +13,6 @@
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Mononoki.zip
     dest: "/usr/share/fonts/Mononoki/"
-    remote_src: yes
+    remote_src: true
     mode: '755'
   when: not mononoki_exists.stat.exists

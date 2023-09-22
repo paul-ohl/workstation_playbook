@@ -1,9 +1,4 @@
-- name: Update packages
-  dnf:
-    name: "*"
-    state: latest
-
 - name: Install essential packages
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ packages }}"
-    state: latest
+    state: present

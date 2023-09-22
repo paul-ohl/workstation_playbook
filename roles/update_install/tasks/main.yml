@@ -1,9 +1,9 @@
 - name: Update and install in Fedora
-  include_tasks: fedora.yml
+  ansible.builtin.include_tasks: fedora.yml
   when: ansible_distribution == "Fedora"
 
 - name: Update and install in Arch Linux
-  import_tasks: arch.yml
+  ansible.builtin.import_tasks: arch.yml
   when: ansible_distribution == "Archlinux" or ansible_distribution == "Arch Linux"
 
 - name: Add the flathub flatpak repository remote to the user installation
