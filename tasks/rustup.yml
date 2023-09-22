@@ -16,18 +16,18 @@
   when: not cargo_exists.stat.exists
 
 - name: Update rust toolchain
-  ansible.builtin.shell: rustup update
+  ansible.builtin.shell: "{{ ansible_env.HOME }}/.cargo/bin/rustup update"
   when: cargo_exists.stat.exists
   register: result
   changed_when: 'result.stdout is search("updated")'
 
 - name: Add nightly toolchain
-  ansible.builtin.shell: rustup toolchain install nightly
+  ansible.builtin.shell: "{{ ansible_env.HOME }}/.cargo/bin/rustup toolchain install nightly"
   register: result
   changed_when: 'result.stdout is search("installed")'
 
 - name: Add wasm target
-  ansible.builtin.shell: rustup target add wasm32-unknown-unknown
+  ansible.builtin.shell: "{{ ansible_env.HOME }}/.cargo/bin/rustup target add wasm32-unknown-unknown"
   register: result
   changed_when: 'result.stdout is search("installing")'
 
