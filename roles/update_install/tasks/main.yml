@@ -1,10 +1,15 @@
-- name: Update and install in Fedora
-  ansible.builtin.include_tasks: fedora.yml
+- name: Install essential packages in Fedora
+  ansible.builtin.dnf:
+    name: "{{ packages }}"
+    state: present
   when: ansible_distribution == "Fedora"
 
-- name: Update and install in Arch Linux
-  ansible.builtin.import_tasks: arch.yml
-  when: ansible_distribution == "Archlinux" or ansible_distribution == "Arch Linux"
+- name: Install essential packages in Ubuntu
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: true
+  when: ansible_distribution == "Ubuntu"
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:

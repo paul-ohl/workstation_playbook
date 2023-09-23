@@ -2,10 +2,6 @@
   ansible.builtin.include_tasks: fedora.yml
   when: ansible_distribution == "Fedora"
 
-- name: Install QEMU on Arch Linux
-  ansible.builtin.import_tasks: arch.yml
-  when: ansible_distribution == "Archlinux"
-
 - name: Ensure libvirtd service is started and enabled
   ansible.builtin.systemd:
     name: libvirtd.service

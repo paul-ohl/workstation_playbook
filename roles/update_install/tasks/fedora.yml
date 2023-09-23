@@ -1,4 +1,0 @@
-- name: Install essential packages
-  ansible.builtin.dnf:
-    name: "{{ packages }}"
-    state: present
