@@ -35,3 +35,5 @@
   community.general.cargo:
     name: "{{ cargo_packages }}"
     state: latest
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin"

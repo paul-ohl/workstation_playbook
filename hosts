@@ -1,2 +1,0 @@
-[home]
-qemu ansible_host=192.168.124.19 ansible_user=pohl ansible_connection=ssh

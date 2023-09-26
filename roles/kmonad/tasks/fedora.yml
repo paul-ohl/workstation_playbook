@@ -1,3 +1,8 @@
+- name: Install dependencies
+  ansible.builtin.dnf:
+    name: stack
+    state: present
+
 - name: Make sure build folder exists
   ansible.builtin.file:
     dest: "{{ ansible_env.HOME }}/.local/git/"

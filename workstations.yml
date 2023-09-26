@@ -1,6 +1,6 @@
 ---
 # Stuff with sudo
-- hosts: all
+- hosts: workstations
   become: yes
 
   pre_tasks:
@@ -16,7 +16,7 @@
     - import_tasks: tasks/mononoki.yml
 
 # Stuff without sudo
-- hosts: all
+- hosts: workstations
 
   roles:
     - dotfiles

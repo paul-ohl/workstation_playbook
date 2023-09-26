@@ -1,0 +1,11 @@
+---
+- hosts: servers
+  become: yes
+
+  pre_tasks:
+    - import_tasks: tasks/user.yml
+
+  roles:
+    - update_install
+    - geerlingguy.pip
+    - geerlingguy.docker
