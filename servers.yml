@@ -1,4 +1,16 @@
 ---
+#
+# Tasks and roles for all hosts
+#
+- hosts: servers
+  gather_facts: no
+
+  pre_tasks:
+      - import_tasks: tasks/ssh_juggle_port.yml
+        tags:
+            - always
+            - port
+
 - hosts: servers
   become: yes
 
@@ -6,6 +18,35 @@
     - import_tasks: tasks/user.yml
 
   roles:
-    - update_install
-    - geerlingguy.pip
-    - geerlingguy.docker
+      - role: system
+        tags:
+            - system
+
+      - role: dotfiles
+        tags:
+            - dotfiles
+
+      - role: geerlingguy.security
+        tags:
+            - security
+
+      - role: geerlingguy.pip
+        tags:
+            - docker
+
+      - role: geerlingguy.docker
+        tags:
+            - docker
+
+      # Look into this!!!
+      # - role: chriswayg.msmtp-mailer
+      #   tags:
+      #       - msmtp
+
+      - name: containers
+        tags:
+          - containers
+
+- hosts: servers
+  tasks:
+    - import_tasks: tasks/rustup.yml

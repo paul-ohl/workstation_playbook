@@ -1,8 +1,5 @@
 username: pohl
 
-# Uncomment this to change the dotfiles repo cloned
-# dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
-
 # Which directories to stow in the dotfiles repo
 stowed_directories:
   - custom_scripts
@@ -18,7 +15,6 @@ qemu_install: false
 packages:
   - clang
   - curl
-  - firefox
   - flatpak
   - git
   - kitty
@@ -30,6 +26,7 @@ packages:
   - vim
   - wget
   - zsh
+
 cargo_packages:
   - bacon
   - bat
@@ -37,8 +34,8 @@ cargo_packages:
   - exa
   - pomors
   - ripgrep
-  - sccache
   - cargo-watch
+
 flatpak_packages:
   # - org.audacityteam.Audacity
   # - org.blender.Blender

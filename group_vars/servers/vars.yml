@@ -1,0 +1,27 @@
+packages:
+  - clang
+  - curl
+  - git
+  - lld
+  - nodejs
+  - stow
+  - unzip
+  - vim
+  - wget
+  - zsh
+
+cargo_packages:
+  - bat
+  - du-dust
+  - exa
+  - ripgrep
+
+dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
+
+security_ssh_port: 1251
+security_sudoers_passworded: 
+  - "{{ username }}"
+
+pip_install_packages:
+  - name: docker
+  - name: pynvim
