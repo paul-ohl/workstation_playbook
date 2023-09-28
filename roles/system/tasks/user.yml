@@ -1,0 +1,36 @@
+---
+- name: Create or modify user
+  user:
+    name: "{{ username }}"
+    password: "{{ password | password_hash('sha512') }}"
+    update_password: "on_create"
+    shell: "/usr/bin/zsh"
+    groups: 
+      - sudo
+      - users
+    state: present
+    append: true
+
+- name: Chmod the user home directory
+  file:
+    path: "/home/{{ username }}"
+    state: directory
+    mode: 0750
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+
+# - name: Allow '{{ sudo_group }}' group to have passwordless sudo
+#   lineinfile:
+#     path: /etc/sudoers
+#     state: present
+#     regexp: '^%{{ sudo_group }}'
+#     line: '%{{ sudo_group }} ALL=(ALL) NOPASSWD: ALL'
+#     validate: '/usr/sbin/visudo -cf %s'
+
+# Didn't manage to make that work quickly, look into it...
+# - name: Copy the public SSH key 
+#   authorized_key:
+#     user: "{{ username }}"
+#     state: present
+#     key: "{{ ssh_public_key }}"

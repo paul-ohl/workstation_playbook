@@ -1,0 +1,24 @@
+{% if "vaultwarden" in services %}
+{$VAULT_DOMAIN}:443 {
+  tls {$EMAIL}
+
+  encode gzip
+
+  # Proxy everything Rocket
+  reverse_proxy vaultwarden:80 {
+    header_up X-Real-IP {remote_host}
+  }
+}
+{% endif %}
+
+{% if "portainer" in services %}
+docker.paulohl.fr {
+  tls {$EMAIL}
+
+  encode gzip
+
+  reverse_proxy portainer:9000 {
+    header_up X-Real-IP {remote_host}
+  }
+}
+{% endif %}

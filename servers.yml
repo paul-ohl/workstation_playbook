@@ -14,9 +14,6 @@
 - hosts: servers
   become: yes
 
-  pre_tasks:
-    - import_tasks: tasks/user.yml
-
   roles:
       - role: system
         tags:
@@ -43,10 +40,6 @@
       #   tags:
       #       - msmtp
 
-      - name: containers
-        tags:
-          - containers
-
-- hosts: servers
-  tasks:
-    - import_tasks: tasks/rustup.yml
+      # - name: containers
+      #   tags:
+      #     - containers

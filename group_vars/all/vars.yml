@@ -1,4 +1,5 @@
 username: pohl
+password: asdf
 
 # Which directories to stow in the dotfiles repo
 stowed_directories:

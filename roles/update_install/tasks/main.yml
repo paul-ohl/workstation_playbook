@@ -1,3 +1,7 @@
+- name: This role is deprecated, use system instead
+  ansible.builtin.fail:
+    msg: This role is deprecated, use system instead
+
 - name: Install essential packages in Fedora
   ansible.builtin.dnf:
     name: "{{ packages }}"

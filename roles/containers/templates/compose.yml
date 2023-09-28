@@ -1,0 +1,62 @@
+networks:
+  protected:
+    internal: true
+    driver: default
+    name: "protected"
+  outside_world:
+    driver: default
+    name: "outside_world"
+    
+services:
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "{{ docker_dir }}/Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "{{ docker_dir }}/caddy/caddy-config:/config"
+      - "{{ docker_dir }}/caddy/caddy-data:/data"
+    environment:
+{% if "vaultwarden" in services %}
+      VAULT_DOMAIN: "vault.{{ domain }}"
+{% endif %}
+{% if "portainer" in services %}
+      PORTAINER_DOMAIN: "docker.{{ domain }}"
+{% endif %}
+      EMAIL: "{{ email }}"
+      LOG_FILE: "/data/access.log"
+    networks:
+      - protected
+      - outside_world
+
+{% if "vaultwarden" in services %}
+  vaultwarden:
+    image: "vaultwarden/server:latest"
+    container_name: "vaultwarden"
+    restart: alway
+    environment:
+      VAULTWARDEN_DOMAIN: "https://vault.{{ domain }}"
+    volumes:
+      - "{{ docker_dir }}/vaultwarden/data:/data"
+    networks:
+      - protected
+{% endif %}
+
+{% if "portainer" in services %}
+  portainer:
+    container_name: "portainer"
+    image: "portainer/portainer-ce:2.15.1"
+    networks:
+      - "protected"
+      - "outside_world"
+    ports:
+      - "8000:8000/tcp"
+      - "9000:9000/tcp"
+    restart: "always"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "{{ docker_dir }}/portainer/data:/data"
+{% endif %}
