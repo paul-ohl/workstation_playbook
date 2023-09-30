@@ -1,10 +1,8 @@
 networks:
   protected:
     internal: true
-    driver: default
     name: "protected"
   outside_world:
-    driver: default
     name: "outside_world"
     
 services:
@@ -19,12 +17,18 @@ services:
       - "{{ docker_dir }}/Caddyfile:/etc/caddy/Caddyfile:ro"
       - "{{ docker_dir }}/caddy/caddy-config:/config"
       - "{{ docker_dir }}/caddy/caddy-data:/data"
+{% if "website" in services %}
+      - "{{ docker_dir }}/website:/www"
+{% endif %}
     environment:
 {% if "vaultwarden" in services %}
       VAULT_DOMAIN: "vault.{{ domain }}"
 {% endif %}
 {% if "portainer" in services %}
       PORTAINER_DOMAIN: "docker.{{ domain }}"
+{% endif %}
+{% if "homer" in services %}
+      PORTAINER_DOMAIN: "home.{{ domain }}"
 {% endif %}
       EMAIL: "{{ email }}"
       LOG_FILE: "/data/access.log"
@@ -36,9 +40,10 @@ services:
   vaultwarden:
     image: "vaultwarden/server:latest"
     container_name: "vaultwarden"
-    restart: alway
+    restart: always
     environment:
       VAULTWARDEN_DOMAIN: "https://vault.{{ domain }}"
+      SIGNUPS_ALLOWED: "false"
     volumes:
       - "{{ docker_dir }}/vaultwarden/data:/data"
     networks:
@@ -59,4 +64,17 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "{{ docker_dir }}/portainer/data:/data"
+{% endif %}
+
+{% if "homer" in services %}
+  homer:
+    image: b4bz/homer
+    container_name: homer
+    volumes:
+      - "{{ docker_dir }}/homer/assets:/www/assets"
+    ports:
+      - 8080:8080
+    user: 1000:1000
+    environment:
+      - INIT_ASSETS=1
 {% endif %}

@@ -1,3 +1,10 @@
+{% if "website" in services %}
+paulohl.fr {
+	root * /www
+	file_server
+}
+
+{% endif %}
 {% if "vaultwarden" in services %}
 {$VAULT_DOMAIN}:443 {
   tls {$EMAIL}
@@ -9,8 +16,8 @@
     header_up X-Real-IP {remote_host}
   }
 }
-{% endif %}
 
+{% endif %}
 {% if "portainer" in services %}
 docker.paulohl.fr {
   tls {$EMAIL}

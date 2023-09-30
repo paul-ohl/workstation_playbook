@@ -1,7 +1,7 @@
 ---
 - name: Check if the dotfiles directory exists on the user
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/dotfiles"
+    path: "/home/{{ username }}/dotfiles"
   register: dotfiles_directory
 
 - name: Generate keypair to add to github account

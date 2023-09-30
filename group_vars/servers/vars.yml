@@ -41,6 +41,7 @@ services:
   - portainer
   # - syncthing
   - vaultwarden
+  - website
 
 # Geerlingguy's roles:
 security_ssh_port: 1251
@@ -51,11 +52,6 @@ security_autoupdate_reboot_time: '23:00'
   # Once email is set up.
 # security_autoupdate_mail_to: '{{ email }}'
 # security_autoupdate_mail_on_error: false
-
-pip_install_packages:
-  - name: docker
-  - name: docker-compose
-  - name: pynvim
 
 docker_edition: "ce"
 docker_users:

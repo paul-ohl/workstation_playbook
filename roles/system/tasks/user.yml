@@ -20,17 +20,8 @@
     group: "{{ username }}"
     recurse: yes
 
-# - name: Allow '{{ sudo_group }}' group to have passwordless sudo
-#   lineinfile:
-#     path: /etc/sudoers
-#     state: present
-#     regexp: '^%{{ sudo_group }}'
-#     line: '%{{ sudo_group }} ALL=(ALL) NOPASSWD: ALL'
-#     validate: '/usr/sbin/visudo -cf %s'
-
-# Didn't manage to make that work quickly, look into it...
-# - name: Copy the public SSH key 
-#   authorized_key:
-#     user: "{{ username }}"
-#     state: present
-#     key: "{{ ssh_public_key }}"
+- name: Copy the public SSH key 
+  authorized_key:
+    user: "{{ username }}"
+    state: present
+    key: "{{ lookup('file', ssh_public_key) }}"

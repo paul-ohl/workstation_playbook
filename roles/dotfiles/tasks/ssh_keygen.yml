@@ -1,12 +1,18 @@
 - name: Create the ~/.ssh directory
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.ssh"
+    path: "/home/{{ username }}/.ssh"
     state: directory
     mode: '0700'
 
+- name: Add github.com to known_hosts
+  ansible.builtin.known_hosts:
+    path: "/home/{{ username }}/.ssh/known_hosts"
+    name: github.com
+    key: "{{ lookup('ansible.builtin.file', 'pubkeys/github.com') }}"
+
 - name: Generate an OpenSSH keypair with the default values
   community.crypto.openssh_keypair:
-    path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+    path: "/home/{{ username }}/.ssh/id_rsa"
 
 - name: Print url and instructions
   ansible.builtin.debug:
@@ -15,7 +21,7 @@
       - "And add a new SSH key with the following key:"
 
 - name: Get public key
-  ansible.builtin.shell: "cat {{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+  ansible.builtin.shell: "cat /home/{{ username }}/.ssh/id_rsa.pub"
   register: id_rsa_output
   changed_when: false
 

@@ -27,10 +27,6 @@
         tags:
             - security
 
-      - role: geerlingguy.pip
-        tags:
-            - docker
-
       - role: geerlingguy.docker
         tags:
             - docker
@@ -40,6 +36,6 @@
       #   tags:
       #       - msmtp
 
-      # - name: containers
-      #   tags:
-      #     - containers
+      - role: containers
+        tags:
+          - containers

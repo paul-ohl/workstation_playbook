@@ -5,13 +5,13 @@
 
 - name: Make sure build folder exists
   ansible.builtin.file:
-    dest: "{{ ansible_env.HOME }}/.local/git/"
+    dest: "/home/{{ username }}/.local/git/"
     state: directory
     mode: '0744'
 
 - name: Make sure install folder exists
   ansible.builtin.file:
-    dest: "{{ ansible_env.HOME }}/.local/bin/"
+    dest: "/home/{{ username }}/.local/bin/"
     state: directory
     mode: '0744'
 
@@ -19,14 +19,14 @@
   ansible.builtin.git:
     repo: https://github.com/kmonad/kmonad.git
     depth: 1
-    dest: "{{ ansible_env.HOME }}/.local/git/kmonad"
+    dest: "/home/{{ username }}/.local/git/kmonad"
 
 - name: Build and install kmonad with stack
-  ansible.builtin.shell: "(cd {{ ansible_env.HOME }}/.local/git/kmonad && stack install --local-bin-path {{ ansible_env.HOME }}/.local/bin/)"
+  ansible.builtin.shell: "(cd /home/{{ username }}/.local/git/kmonad && stack install --local-bin-path /home/{{ username }}/.local/bin/)"
 
 - name: Copy kmonad binary to systemd folder
   ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/.local/bin/kmonad"
+    src: "/home/{{ username }}/.local/bin/kmonad"
     dest: /usr/bin/kmonad
     mode: "755"
   become: true

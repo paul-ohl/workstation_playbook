@@ -35,7 +35,7 @@
     name: 
       - github3.py
 
-- name: Check latest neovim release
+- name: Check latest neovim release => Research this
   github_release:
     user: neovim
     repo: neovim
@@ -43,6 +43,18 @@
     # token: "{{ github_token }}"
   register: neovim_release
   changed_when: neovim_release.tag != neovim_version.stdout
+
+# - name: Debug nvim version
+#   debug:
+#     var: neovim_version
+#
+# - name: Debug nvim github version
+#   debug:
+#     var: neovim_release
+#
+# - name: fail
+#   fail:
+#     msg: stopping
 
 - name: Delete the old version of nvim via the package manager
   package:
