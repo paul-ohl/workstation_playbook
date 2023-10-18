@@ -1,0 +1,39 @@
+- name: Set the hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Replace the hostname entry with our own
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    insertafter: ^127\.0\.0\.1 *localhost
+    line: "127.0.0.1 {{ inventory_hostname }}"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install google authenticator
+  package:
+    name: libpam-google-authenticator
+
+# - name: Update SSH configuration for 2FA auth
+#   lineinfile:
+#     path: "/etc/ssh/sshd_config"
+#     regexp: "{{ item.regexp }}"
+#     line: "{{ item.line }}"
+#     state: present
+#     validate: 'sshd -T -f %s'
+#     mode: 0644
+#   with_items:
+#     - regexp: "^ChallengeResponseAuthentication"
+#       line: "ChallengeResponseAuthentication yes"
+#     - regexp: "^UsePAM"
+#       line: "UsePAM yes"
+#   notify: restart ssh
+#
+# - name: Add to SSH configuration
+#   lineinfile:
+#     path: "/etc/ssh/sshd_config"
+#     line: "AuthenticationMethods publickey,keyboard-interactive"
+#     mode: '0644'
+#     validate: 'sshd -T -f %s'
+#   notify: restart ssh

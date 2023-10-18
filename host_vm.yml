@@ -1,0 +1,6 @@
+workstations:
+  hosts:
+    vm:
+      ansible_user: pohl
+      ansible_connection: ssh
+      ansible_host: 192.168.124.19

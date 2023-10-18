@@ -25,7 +25,6 @@ ansible-playbook -K playbook.yml
 - Fix the ssh juggle fail (gl)
 - Update the workstation config to use some of the server's roles
 - Fix the nvim install task
-- Setup a LDAP
-- Configure Vaultwarden to use the LDAP
 - Setup ansible secrets
 - Look into MSMTP mailing and such
+    - Look into email aliases, that would be grand

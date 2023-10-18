@@ -5,11 +5,26 @@
     password: "{{ password | password_hash('sha512') }}"
     update_password: "on_create"
     shell: "/usr/bin/zsh"
-    groups: 
-      - sudo
-      - users
     state: present
+
+- name: Add user to groups users and sudo
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups:
+      - users
+      - sudo
     append: true
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Add user to group wheel
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups:
+      - wheel
+    append: true
+    state: present
+  when: ansible_distribution == "Fedora"
 
 - name: Chmod the user home directory
   file:
@@ -25,3 +40,4 @@
     user: "{{ username }}"
     state: present
     key: "{{ lookup('file', ssh_public_key) }}"
+  when: ssh_public_key is defined

@@ -1,4 +1,7 @@
 ---
 - include_tasks: device.yml
+- include_tasks: server_specific.yml
+  when: "'servers' in group_names"
 - include_tasks: user.yml
 - include_tasks: neovim_install.yml
+  when: ansible_distribution == "Ubuntu" and "neovim" in stowed_directories
