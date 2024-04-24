@@ -1,0 +1,5 @@
+workstations:
+  hosts:
+    vm:
+      ansible_connection: local
+      ansible_host: localhost

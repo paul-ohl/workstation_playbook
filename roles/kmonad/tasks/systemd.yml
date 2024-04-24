@@ -1,0 +1,15 @@
+- name: Copy service file to systemd folder
+  ansible.builtin.template:
+    src: kmonad.service.j2
+    dest: /etc/systemd/system/kmonad.service
+    owner: root
+    mode: '0644'
+  become: true
+
+- name: Enable systemd for kmonad
+  ansible.builtin.systemd:
+    name: kmonad.service
+    daemon_reload: true
+    enabled: true
+    state: started
+  become: true

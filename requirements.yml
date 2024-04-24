@@ -1,7 +1,2 @@
-collections:
-  # - name: kewlfft.aur
-
 roles:
-  - src: geerlingguy.pip
   - src: geerlingguy.docker
-  - src: geerlingguy.security

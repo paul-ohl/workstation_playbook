@@ -1,14 +1,13 @@
 # System stuff
 
 username: pohl
-password: asdf
 
 # Which directories to stow in the dotfiles repo
 # This will also determine whether some software is installed or not
 stowed_directories:
   - custom_scripts
-  # - git
-  - hyprland
+  - git
+  # - hyprland
   # - karabiner
   - kmonad
   - neovim
@@ -41,6 +40,7 @@ cargo_packages:
   - pomors
   - ripgrep
   - cargo-watch
+  - zellij
 
 flatpak_packages:
   # - org.audacityteam.Audacity
@@ -59,6 +59,9 @@ flatpak_packages:
   # - com.github.micahflee.torbrowser-launcher
   - org.videolan.VLC
   # - us.zoom.Zoom
+
+# Software-specific variables
+kmonad_config_name: main.kbd
 
 # Geerlingguy's docker role variables
 docker_edition: "ce"

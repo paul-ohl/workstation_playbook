@@ -1,0 +1,15 @@
+- name: Build kmonad docker image
+  command: docker build -t kmonad-builder github.com/kmonad/kmonad.git
+
+- name: Run kmonad builder docker image
+  command: docker run --rm -it -v /tmp/:/host/ kmonad-builder bash -c 'cp -vp /root/.local/bin/kmonad /host/'
+
+- name: Remove the kmonad builder image
+  command: docker rmi kmonad-builder
+
+- name: Copy kmonad binary to system
+  ansible.builtin.copy:
+    src: /tmp/kmonad
+    dest: /usr/bin/kmonad
+    mode: "755"
+  become: true

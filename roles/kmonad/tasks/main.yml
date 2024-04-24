@@ -3,6 +3,27 @@
     path: "/usr/bin/kmonad"
   register: binary
 
-- name: Install kmonad on Fedora
-  ansible.builtin.include_tasks: fedora.yml
-  when: ansible_distribution == "Fedora" and not binary.stat.exists
+- name: Check if Docker is installed
+  command: docker --version
+  register: docker_valid
+  ignore_errors: yes
+
+- name: Install kmonad with Docker
+  ansible.builtin.include_tasks: docker_install.yml
+  when: not docker_valid.failed and not binary.stat.exists
+
+- name: Install Docker and try again
+  ansible.builtin.debug:
+    msg:
+      - "Docker is not installed"
+      - "There is a docker installation role"
+  when: docker_valid.failed and not binary.stat.exists
+
+- name: Check that install has succeeded
+  ansible.builtin.stat:
+    path: "/usr/bin/kmonad"
+  register: binary
+
+- name: Setup systemd for kmonad
+  ansible.builtin.include_tasks: systemd.yml
+  when: binary.stat.exists
