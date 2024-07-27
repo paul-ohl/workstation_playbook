@@ -1,7 +1,0 @@
-- name: Check if should install QEMU
-  ansible.builtin.set_fact:
-    shoud_install: "{{ qemu_install }}"
-
-- name: Install QEMU
-  ansible.builtin.import_tasks: os_dispatch.yml
-  when: qemu_install == "true"

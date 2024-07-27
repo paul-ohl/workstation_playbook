@@ -10,6 +10,8 @@
 - name: Generate keypair to add to github account
   ansible.builtin.import_tasks: ssh_keygen.yml
   when: not dotfiles_directory.stat.exists and dotfiles_url_fact is regex('^git\@github.*')
+  become: true
+  become_user: "{{ username }}"
 
 - name: Clone and stow the dotfiles
   ansible.builtin.import_tasks: folder_managing.yml

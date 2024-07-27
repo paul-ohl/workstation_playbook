@@ -4,17 +4,13 @@
   become: yes
 
   roles:
-    # - role: system
-    #   tags:
-    #     - system
+    - role: system
+      tags:
+        - system
 
-    # - role: dotfiles
-    #   tags:
-    #     - dotfiles
-
-    # - role: hyprland
-    #   tags:
-    #     - hyprland
+    - role: dotfiles
+      tags:
+        - dotfiles
 
     - role: geerlingguy.docker
       tags:
@@ -28,5 +24,5 @@
 # Stuff without sudo
 - hosts: workstations
 
-  # tasks:
-  #   - import_tasks: tasks/rustup.yml # important: do not "become: yes" on this task
+  tasks:
+    - import_tasks: tasks/rustup.yml # important: do not "become: yes" on this task

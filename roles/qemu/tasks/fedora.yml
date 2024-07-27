@@ -1,6 +1,0 @@
-- name: Install dependencies
-  ansible.builtin.dnf:
-    name:
-      - qemu
-      - virt-manager
-    state: present

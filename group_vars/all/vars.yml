@@ -2,6 +2,9 @@
 
 username: pohl
 
+# The URL at which to get the dotfiles
+dotfiles_url: "git@github.com:paul-ohl/dotfiles.git"
+
 # Which directories to stow in the dotfiles repo
 # This will also determine whether some software is installed or not
 stowed_directories:
@@ -24,8 +27,12 @@ packages:
   - git
   - kitty
   - lld
+  - mold
+  - neovim
   - nodejs
   - openssl
+  - openssl-devel
+  - pkg-config
   - stow
   - unzip
   - vim
@@ -35,12 +42,12 @@ packages:
 cargo_packages:
   - bacon
   - bat
+  - cargo-watch
+  - cargo-update
   - du-dust
   - exa
-  - pomors
   - ripgrep
-  - cargo-watch
-  - zellij
+  # - zellij
 
 flatpak_packages:
   # - org.audacityteam.Audacity
