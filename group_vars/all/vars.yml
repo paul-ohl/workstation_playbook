@@ -12,7 +12,7 @@ stowed_directories:
   - git
   # - hyprland
   # - karabiner
-  - kmonad
+  - kanata
   - neovim
   # - zathura
   - zsh
@@ -46,8 +46,9 @@ cargo_packages:
   - cargo-update
   - du-dust
   - exa
+  - kanata
   - ripgrep
-  # - zellij
+  - zellij
 
 flatpak_packages:
   # - org.audacityteam.Audacity
