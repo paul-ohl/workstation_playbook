@@ -8,13 +8,15 @@ dotfiles_url: "git@github.com:paul-ohl/dotfiles.git"
 # Which directories to stow in the dotfiles repo
 # This will also determine whether some software is installed or not
 stowed_directories:
+  # - alacritty
   - custom_scripts
   - git
   # - hyprland
-  # - karabiner
   - kanata
+  - kitty
   - neovim
-  # - zathura
+  - rust
+  - zellij
   - zsh
 
 # Install QEMU

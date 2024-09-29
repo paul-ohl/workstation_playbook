@@ -1,6 +1,6 @@
 ---
 # Stuff with sudo
-- hosts: workstations
+- hosts: all
   become: yes
 
   roles:
@@ -16,10 +16,13 @@
       tags:
         - docker
 
-# Stuff without sudo
-- hosts: workstations
-
   tasks:
     - import_tasks: tasks/mononoki.yml
-      become: yes
+
+# Stuff without sudo
+- hosts: all
+
+  tasks:
     - import_tasks: tasks/rustup.yml # important: do not "become: yes" on this task
+      tags:
+        - rust

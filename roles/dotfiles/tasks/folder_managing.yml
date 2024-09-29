@@ -1,9 +1,6 @@
-# - name: Clone my dotfiles on the machine
-#   ansible.builtin.git:
-#     repo: "{{ dotfiles_url }}"
-#     depth: 1
-#     key_file: "/home/{{ username }}/.ssh/id_rsa"
-#     dest: "/home/{{ username }}/dotfiles"
+- name: Clone dotfiles
+  ansible.builtin.shell: "git clone {{ dotfiles_url }} /home/{{ username }}/dotfiles"
+  become: false
 
 - name: Run stow
   loop: "{{ stowed_directories }}"
