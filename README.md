@@ -16,6 +16,11 @@ ansible-galaxy install -r requirements.yml
 ansible-playbook -K playbook.yml
 ```
 
+To run individual tags:
+```bash
+ansible-playbook -K playbook.yml --tags "system,software_install,dotfiles,docker,rust"
+```
+
 ## TODO
 
 - Make some packages mandatory, others optional in the variables
