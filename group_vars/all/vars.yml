@@ -26,6 +26,7 @@ packages:
   - clang
   - curl
   - flatpak
+  - fzf
   - git
   - kitty
   - lld
