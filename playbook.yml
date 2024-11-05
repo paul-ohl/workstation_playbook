@@ -1,7 +1,7 @@
 ---
 # Stuff with sudo
 - hosts: all
-  become: yes
+  become: true
 
   roles:
     - role: system
@@ -24,7 +24,8 @@
 # Stuff without sudo
 - hosts: all
 
-  tasks:
-    - import_tasks: tasks/rustup.yml # important: do not "become: yes" on this task
+  roles:
+    - role: rust
       tags:
+        - software_install
         - rust
