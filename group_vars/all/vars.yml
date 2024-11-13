@@ -45,8 +45,9 @@ packages:
 cargo_packages:
   - bacon
   - bat
-  - cargo-watch
+  - cargo-nextest
   - cargo-update
+  - cargo-watch
   - du-dust
   - exa
   - kanata
