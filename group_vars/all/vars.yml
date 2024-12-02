@@ -72,8 +72,10 @@ flatpak_packages:
   - org.videolan.VLC
   # - us.zoom.Zoom
 
-# Software-specific variables
-kmonad_config_name: main.kbd
+# A list of domains to block using the `/etc/hosts` file
+blocked_domains:
+  - 9gag.com
+  - www.9gag.com
 
 # Geerlingguy's docker role variables
 docker_edition: "ce"

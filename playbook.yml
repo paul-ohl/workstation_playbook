@@ -21,6 +21,9 @@
     - import_tasks: tasks/mononoki.yml
       tags: software_install
 
+    - import_tasks: tasks/hosts_blocklist.yml
+      tags: system
+
 # Stuff without sudo
 - hosts: all
 

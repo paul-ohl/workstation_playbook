@@ -1,0 +1,12 @@
+---
+- name: Get url list to host file
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
+    dest: /etc/hosts
+
+- name: Add custom domains to the list
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    insertafter: '\# Custom host records are listed here.'
+    line: "0.0.0.0 {{ item }}"
+  loop: "{{ blocked_domains }}"
