@@ -27,3 +27,8 @@
     name: "{{ packages }}"
     state: present
   when: ansible_distribution == "Ubuntu"
+
+- name: Setup the user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: "{{ shell }}"

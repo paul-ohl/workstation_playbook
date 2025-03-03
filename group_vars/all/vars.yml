@@ -1,6 +1,7 @@
 # System stuff
 
 username: pohl
+shell: /usr/bin/zsh
 
 # The URL at which to get the dotfiles
 dotfiles_url: "git@github.com:paul-ohl/dotfiles.git"
