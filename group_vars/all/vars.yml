@@ -8,21 +8,22 @@ dotfiles_url: "git@github.com:paul-ohl/dotfiles.git"
 # Which directories to stow in the dotfiles repo
 # This will also determine whether some software is installed or not
 stowed_directories:
-  # - alacritty
+  - alacritty
   - custom_scripts
   - git
   # - hyprland
   - kanata
-  - kitty
+  # - kitty
   - neovim
   - rust
-  - zellij
+  - tmux
   - zsh
 
 # Install QEMU
 qemu_install: false
 
 packages:
+  - alacritty
   - clang
   - curl
   - flatpak
@@ -37,6 +38,7 @@ packages:
   - openssl-devel
   - pkg-config
   - stow
+  - tmux
   - unzip
   - vim
   - wget
@@ -52,18 +54,17 @@ cargo_packages:
   - exa
   - kanata
   - ripgrep
-  - zellij
 
 flatpak_packages:
   # - org.audacityteam.Audacity
   # - org.blender.Blender
   - com.spotify.Client
-  # - com.discordapp.Discord
-  - org.filezillaproject.Filezilla
+  - com.discordapp.Discord
+  # - org.filezillaproject.Filezilla
   # - org.gimp.GIMP
   # - org.kde.kdenlive
   - md.obsidian.Obsidian
-  - com.getpostman.Postman
+  # - com.getpostman.Postman
   - org.qbittorrent.qBittorrent
   # - com.slack.Slack
   # - com.valvesoftware.Steam
