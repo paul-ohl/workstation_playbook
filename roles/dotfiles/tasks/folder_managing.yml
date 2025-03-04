@@ -2,6 +2,18 @@
   ansible.builtin.shell: "git clone {{ dotfiles_url }} /home/{{ username }}/dotfiles"
   become: false
 
+- name: Create directories that we don't want stow to symlink
+  file:
+    path:
+      - "/home/{{ username }}/.config/"
+      - "/home/{{ username }}/.local/"
+      - "/home/{{ username }}/.local/git"
+      - "/home/{{ username }}/.local/bin"
+      - "/home/{{ username }}/.config/systemd/user/"
+      - "/home/{{ username }}/.cargo/"
+    state: directory
+    mode: '0755'
+
 - name: Run stow
   loop: "{{ stowed_directories }}"
   ansible.builtin.shell: "stow -d /home/{{ username }}/dotfiles --verbose=2 {{ item }}"

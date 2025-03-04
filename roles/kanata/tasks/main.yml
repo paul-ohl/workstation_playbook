@@ -1,0 +1,33 @@
+- name: Ensure uinput group exists
+  group:
+    name: uinput
+    state: present
+
+- name: Add user to input and uinput groups
+  user:
+    name: "{{ username }}"
+    groups: input, uinput
+    append: yes
+
+- name: Create udev rules file
+  copy:
+    dest: "/etc/udev/rules.d/99-input.rules"
+    content: |
+      KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload udev rules part 1
+  command: udevadm control --reload-rules
+
+- name: Reload udev rules part 2
+  command: udevadm trigger
+
+- name: Load uinput module
+  command: modprobe uinput
+
+- name: Execute the tasks that have to be run as the user
+  ansible.builtin.import_tasks: user_tasks.yml
+  become: false
+  become_user: "{{ username }}"
