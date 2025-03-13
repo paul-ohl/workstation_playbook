@@ -1,0 +1,60 @@
+- name: Install required packages on Fedora
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - file
+      - ffmpeg
+      - p7zip
+      - jq
+      - poppler
+      - fzf
+      - zoxide
+      - ImageMagick
+      - xclip
+      - wl-clipboard
+    state: present
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install required packages on Ubuntu
+  become: true
+  ansible.builtin.apt:
+    name:
+      - file
+      - ffmpeg
+      - p7zip-full
+      - jq
+      - poppler-utils
+      - fzf
+      - zoxide
+      - imagemagick
+      - xclip
+      - wl-clipboard
+    state: present
+    update_cache: yes
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install cargo packages
+  community.general.cargo:
+    name:
+      - yazi-fm
+      - yazi-cli
+      - fd-find
+      - ripgrep
+    state: latest
+  environment:
+    PATH: "/home/{{ username }}/.cargo/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
+    OPENSSL_NO_VENDOR: "true"
+    CRATE_CC_NO_DEFAULTS: "true"
+    CARGO_TARGET_DIR: "/tmp/cargo-installmdsRe4"
+    CFLAGS: "-fPIE"
+  ignore_errors: true
+  register: cargo_install_result
+
+- name: installation failed, run the cargo command yourself
+  ansible.builtin.debug:
+    msg:
+      - "`cargo install` seems to have failed, run the command yourself."
+      - "cargo install {{ cargo_packages | join(' ') }}"
+  when:
+    - cargo_install_result is failed
+

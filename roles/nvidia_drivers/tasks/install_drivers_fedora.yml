@@ -1,0 +1,12 @@
+- name: Ensure system is up-to-date
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install NVIDIA driver and dependencies
+  ansible.builtin.dnf:
+    name:
+      - akmod-nvidia
+      - xorg-x11-drv-nvidia-cuda
+    state: present
+  register: dnf_install

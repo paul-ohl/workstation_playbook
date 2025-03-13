@@ -9,6 +9,11 @@
         - system
         - software_install
 
+    - role: nvidia_drivers
+      tags:
+        - system
+        - software_install
+
     - role: dotfiles
       tags:
         - dotfiles
@@ -33,6 +38,12 @@
 
   roles:
     - role: rust
+      tags:
+        - software_install
+        - rust
+
+  tasks:
+    - import_tasks: tasks/yazi.yml
       tags:
         - software_install
         - rust

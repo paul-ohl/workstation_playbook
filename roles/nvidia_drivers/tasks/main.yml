@@ -1,0 +1,15 @@
+- name: Check for NVIDIA GPU
+  ansible.builtin.command: "/sbin/lspci | grep -e VGA"
+  register: lspci_output
+  changed_when: false
+
+- name: Set NVIDIA GPU detection fact
+  ansible.builtin.set_fact:
+    has_nvidia: "{{ 'NVIDIA' in lspci_output.stdout }}"
+
+- include_tasks: install_drivers_fedora.yml
+  when: ansible_facts['os_family'] == "RedHat" and has_nvidia
+
+# Someday maybe???
+# - include_tasks: install_drivers_ubuntu.yml
+#   when: ansible_facts['os_family'] == "Debian" and has_nvidia
