@@ -25,7 +25,6 @@ qemu_install: false
 
 packages:
   - alacritty
-  - clang
   - curl
   - flatpak
   - fzf
@@ -33,11 +32,9 @@ packages:
   - httpie
   - kitty
   - lld
-  - mold
   - neovim
   - nodejs
   - openssl
-  - openssl-devel
   - pkg-config
   - stow
   - tmux
