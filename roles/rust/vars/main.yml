@@ -1,5 +1,0 @@
-rust_ubuntu_packages:
-
-rust_fedora_packages:
-  - alsa-lib-devel
-  - openssl-devel

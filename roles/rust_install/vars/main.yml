@@ -1,0 +1,7 @@
+rust_install_ubuntu_dependencies:
+  - libasound2-dev
+  - libssl-dev
+
+rust_install_fedora_dependencies:
+  - alsa-lib-devel
+  - openssl-devel

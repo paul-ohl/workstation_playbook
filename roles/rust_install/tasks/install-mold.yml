@@ -1,0 +1,11 @@
+- name: Install mold (Ubuntu)
+  package:
+    name: mold
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install mold (Fedora)
+  ansible.builtin.dnf:
+    name: mold
+    state: latest
+  when: ansible_distribution == "Fedora"

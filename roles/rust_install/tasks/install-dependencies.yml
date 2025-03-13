@@ -1,0 +1,11 @@
+- name: Install dependencies (Ubuntu)
+  package:
+    name: "{{ rust_install_ubuntu_dependencies }}"
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install dependencies (Fedora)
+  ansible.builtin.dnf:
+    name: "{{ rust_install_fedora_dependencies }}"
+    state: latest
+  when: ansible_distribution == "Fedora"
