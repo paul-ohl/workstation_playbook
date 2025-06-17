@@ -3,7 +3,7 @@
   ansible.builtin.dnf:
     name:
       - file
-      - ffmpeg
+      - ffmpeg-free
       - p7zip
       - jq
       - poppler

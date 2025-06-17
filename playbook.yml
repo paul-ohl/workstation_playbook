@@ -9,10 +9,10 @@
         - system
         - software_install
 
-    - role: nvidia_drivers
-      tags:
-        - system
-        - software_install
+    # - role: nvidia_drivers
+    #   tags:
+    #     - system
+    #     - software_install
 
     - role: dotfiles
       tags:
@@ -21,6 +21,7 @@
     - role: kanata
       tags:
         - dotfiles
+        - software_install
 
     - role: geerlingguy.docker
       tags:
@@ -35,12 +36,6 @@
 
 # Stuff without sudo
 - hosts: all
-
-  roles:
-    - role: rust
-      tags:
-        - software_install
-        - rust
 
   tasks:
     - import_tasks: tasks/yazi.yml
