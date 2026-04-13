@@ -1,9 +1,11 @@
 - name: Clone dotfiles
-  ansible.builtin.shell: "git clone {{ dotfiles_url }} /home/{{ username }}/dotfiles"
+  ansible.builtin.git:
+    repo: "{{ dotfiles_url }}"
+    dest: "/home/{{ username }}/dotfiles"
   become: false
 
 - name: Create directories that we don't want stow to symlink
-  file:
+  ansible.builtin.file:
     path:
       - "/home/{{ username }}/.config/"
       - "/home/{{ username }}/.local/"
@@ -18,9 +20,9 @@
 
 - name: Run stow
   loop: "{{ stowed_directories }}"
-  ansible.builtin.shell: "stow -d /home/{{ username }}/dotfiles --verbose=2 {{ item }}"
-  register: result
-  changed_when: 'result.stderr is search("LINK: ")'
+  ansible.builtin.command: "stow -d /home/{{ username }}/dotfiles --verbose=2 {{ item }}"
+  register: dotfiles_result
+  changed_when: 'dotfiles_result.stderr is search("LINK: ")'
 
 - name: Create the uinput group if it doesn't exist
   ansible.builtin.group:

@@ -1,12 +1,21 @@
 ---
-- hosts: all
+- name: Main playbook
+  hosts: all
   become: true
 
   roles:
     - role: geerlingguy.docker
       tags:
         - docker
+        - install
+
+    - role: rust_install
+      tags:
+        - rust
+        - install
+
+    - role: system
 
   tasks:
-    - import_tasks: tasks/hosts_blocklist.yml
-      tags: system
+    - name: Blocklist domains
+      ansible.builtin.import_tasks: tasks/hosts_blocklist.yml

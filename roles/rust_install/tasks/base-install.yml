@@ -6,19 +6,20 @@
     force: 'yes'
 
 - name: Install rust toolchain
-  ansible.builtin.shell: /tmp/sh.rustup.rs -y
+  ansible.builtin.command: /tmp/sh.rustup.rs -y
+  changed_when: false
 
 - name: Update rust toolchain
-  ansible.builtin.shell: "/home/{{ username }}/.cargo/bin/rustup update"
-  register: result
-  changed_when: 'result.stdout is search("updated")'
+  ansible.builtin.command: "/home/{{ username }}/.cargo/bin/rustup update"
+  register: rust_install_result_update
+  changed_when: 'rust_install_result_update.stdout is search("updated")'
 
 - name: Add nightly toolchain
-  ansible.builtin.shell: "/home/{{ username }}/.cargo/bin/rustup toolchain install nightly"
-  register: result
-  changed_when: 'result.stdout is search("installed")'
+  ansible.builtin.command: "/home/{{ username }}/.cargo/bin/rustup toolchain install nightly"
+  register: rust_install_result_nightly
+  changed_when: 'rust_install_result_nightly.stdout is search("installed")'
 
 - name: Add wasm target
-  ansible.builtin.shell: "/home/{{ username }}/.cargo/bin/rustup target add wasm32-unknown-unknown"
-  register: result
-  changed_when: 'result.stdout is search("installing")'
+  ansible.builtin.command: "/home/{{ username }}/.cargo/bin/rustup target add wasm32-unknown-unknown"
+  register: rust_install_result_wasm
+  changed_when: 'rust_install_result_wasm.stdout is search("installing")'

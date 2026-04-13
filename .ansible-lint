@@ -4,5 +4,4 @@ skip_list:
   - package-latest
   - yaml
 
-warn_list:
-  - load-failure
+warn_list: []

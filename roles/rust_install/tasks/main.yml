@@ -1,25 +1,19 @@
-- include_tasks: install-dependencies.yml
-  become: true
-  when: not rust_install_packages.empty
-
 - name: Check if cargo is installed
   ansible.builtin.stat:
     path: "/home/{{ username }}/.cargo/bin/cargo"
-  register: cargo_exists
+  register: rust_install_cargo_exists
 
-- include_tasks: base-install.yml
-  become: false
-  become_user: "{{ username }}"
-  when: not cargo_exists.stat.exists and not rust_install_packages.empty
+- name: Install rust
+  ansible.builtin.include_tasks: base-install.yml
+  when: not rust_install_cargo_exists.stat.exists
 
-- include_tasks: install-sccache.yml
-  become: false
-  become_user: "{{ username }}"
-  when: rust_install_use_sccache and not rust_install_packages.empty
+- name: Install sccache
+  ansible.builtin.include_tasks: install-sccache.yml
+  when: rust_install_use_sccache
 
-- include_tasks: install-mold.yml
-  become: true
-  when: rust_install_use_mold and not rust_install_packages.empty
+- name: Install mold
+  ansible.builtin.include_tasks: install-mold.yml
+  when: rust_install_use_mold
 
 - name: Install cargo packages
   community.general.cargo:
@@ -33,13 +27,13 @@
     CFLAGS: "-fPIE"
     RUSTC_WRAPPER: "/home/{{ username }}/.cargo/bin/sccache"
   ignore_errors: true
-  register: cargo_install_result
+  register: rust_install_cargo_install_result
   when: not rust_install_packages.empty
 
-- name: installation failed, run the cargo command yourself
+- name: Installation failed, run the cargo command yourself
   ansible.builtin.debug:
     msg:
       - "`cargo install` seems to have failed, run the command yourself."
       - "cargo install {{ cargo_packages | join(' ') }}"
   when:
-    - cargo_install_result is failed
+    - rust_install_cargo_install_result is failed

@@ -21,13 +21,13 @@
       - "And add a new SSH key with the following key:"
 
 - name: Get public key
-  ansible.builtin.shell: "cat /home/{{ username }}/.ssh/id_rsa.pub"
-  register: id_rsa_output
+  ansible.builtin.command: "cat /home/{{ username }}/.ssh/id_rsa.pub"
+  register: dotfiles_id_rsa_output
   changed_when: false
 
 - name: Print public key
   ansible.builtin.debug:
-    msg: "{{ id_rsa_output.stdout }}"
+    msg: "{{ dotfiles_id_rsa_output.stdout }}"
 
 - name: Pause execution to let the user add the key to github
   ansible.builtin.pause:

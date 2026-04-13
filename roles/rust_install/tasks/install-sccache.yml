@@ -1,7 +1,7 @@
 - name: Check if sccache is installed
   ansible.builtin.stat:
     path: "/home/{{ username }}/.cargo/bin/sccache"
-  register: sccache_exists
+  register: rust_install_sccache_exists
 
 - name: Install sccache
   community.general.cargo:
@@ -12,5 +12,5 @@
     CRATE_CC_NO_DEFAULTS: "true"
     CARGO_TARGET_DIR: "/tmp/cargo-installmdsRe4"
     CFLAGS: "-fPIE"
-  when: not sccache_exists.stat.exists
+  when: not rust_install_sccache_exists.stat.exists
 
