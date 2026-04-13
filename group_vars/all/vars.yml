@@ -1,6 +1,6 @@
 # System stuff
 
-username: pohl
+username: astro
 shell: /usr/bin/zsh
 
 # The URL at which to get the dotfiles
