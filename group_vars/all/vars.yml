@@ -33,9 +33,9 @@ packages:
   - curl
   - discord
   - dolphin
-  - du-dust
   - duf
   - dunst
+  - dust
   - exa
   - fastfetch
   - feishin

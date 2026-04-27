@@ -3,20 +3,20 @@
   community.general.pacman:
     update_cache: yes
     upgrade: yes
-  when: ansible_distribution == "Archlinux"
+  when: ansible_facts['distribution'] == "Archlinux"
 
 - name: Update and upgrade packages in Fedora
   ansible.builtin.dnf:
     name: "*"
     state: latest
     autoremove: true
-  when: ansible_distribution == "Fedora"
+  when: ansible_facts['distribution'] == "Fedora"
 
 - name: Install wanted packages
   ansible.builtin.package:
     name: "{{ packages }}"
     state: present
-  when: ansible_distribution == "Fedora" or ansible_distribution == "Archlinux"
+  when: ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "Archlinux"
 
 - name: Check if reboot required
   ansible.builtin.stat:

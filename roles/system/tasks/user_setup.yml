@@ -1,7 +1,7 @@
 - name: Add user to sudo group
   ansible.builtin.user:
     name: "{{ username }}"
-    groups: "{{ 'sudo' if ansible_os_family == 'Debian' else 'wheel' }}"
+    groups: "{{ 'sudo' if ansible_facts['os_family'] == 'Debian' else 'wheel' }}"
     append: true
   become: true
   when: system_make_user_sudo
@@ -12,31 +12,27 @@
     line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
     create: true
     validate: "visudo -cf %s"
+    mode: "0440"
   become: true
   when: system_passwordless_sudo
 
-- name: Check for GDM custom configuration file
-  ansible.builtin.stat:
-    path: /etc/gdm3/custom.conf
-  register: gdm_custom_conf
+- name: Ensure SDDM config drop-in directory exists
+  ansible.builtin.file:
+    path: /etc/sddm.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: system_auto_login_on_boot
 
-- name: Configure auto-login for GDM
-  ansible.builtin.block:
-    - name: Set auto-login user
-      ansible.builtin.lineinfile:
-        path: /etc/gdm3/custom.conf
-        regexp: "^AutomaticLogin ="
-        line: "AutomaticLogin = {{ username }}"
-        insertafter: "^#?AutomaticLoginEnable = true"
-      become: true
-
-    - name: Enable auto-login
-      ansible.builtin.lineinfile:
-        path: /etc/gdm3/custom.conf
-        regexp: "^AutomaticLoginEnable ="
-        line: "AutomaticLoginEnable = true"
-        insertbefore: "^#?AutomaticLogin ="
-      become: true
-  when:
-    - system_auto_login_on_boot
-    - gdm_custom_conf.stat.exists
+- name: Configure SDDM autologin
+  ansible.builtin.copy:
+    dest: /etc/sddm.conf.d/autologin.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Autologin]
+      User={{ username }}
+      Session=hyprland
+  when: system_auto_login_on_boot
