@@ -1,0 +1,3 @@
+system_make_user_sudo: true
+system_auto_login_on_boot: false
+system_passwordless_sudo: true

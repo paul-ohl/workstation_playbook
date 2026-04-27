@@ -2,4 +2,3 @@
   ansible.builtin.package:
     name: mold
     state: present
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora" or ansible_distribution == "Archlinux"

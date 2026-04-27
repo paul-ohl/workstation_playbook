@@ -5,13 +5,6 @@
     upgrade: yes
   when: ansible_distribution == "Archlinux"
 
-- name: Update and upgrade packages in Ubuntu
-  ansible.builtin.apt:
-    update_cache: yes
-    upgrade: yes
-    autoremove: yes
-  when: ansible_distribution == "Ubuntu"
-
 - name: Update and upgrade packages in Fedora
   ansible.builtin.dnf:
     name: "*"
@@ -23,7 +16,7 @@
   ansible.builtin.package:
     name: "{{ packages }}"
     state: present
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora" or ansible_distribution == "Archlinux"
+  when: ansible_distribution == "Fedora" or ansible_distribution == "Archlinux"
 
 - name: Check if reboot required
   ansible.builtin.stat:

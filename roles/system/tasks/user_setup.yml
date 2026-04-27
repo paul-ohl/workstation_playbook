@@ -1,0 +1,42 @@
+- name: Add user to sudo group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: "{{ 'sudo' if ansible_os_family == 'Debian' else 'wheel' }}"
+    append: true
+  become: true
+  when: system_make_user_sudo
+
+- name: Configure passwordless sudo
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers.d/{{ username }}"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    create: true
+    validate: "visudo -cf %s"
+  become: true
+  when: system_passwordless_sudo
+
+- name: Check for GDM custom configuration file
+  ansible.builtin.stat:
+    path: /etc/gdm3/custom.conf
+  register: gdm_custom_conf
+
+- name: Configure auto-login for GDM
+  ansible.builtin.block:
+    - name: Set auto-login user
+      ansible.builtin.lineinfile:
+        path: /etc/gdm3/custom.conf
+        regexp: "^AutomaticLogin ="
+        line: "AutomaticLogin = {{ username }}"
+        insertafter: "^#?AutomaticLoginEnable = true"
+      become: true
+
+    - name: Enable auto-login
+      ansible.builtin.lineinfile:
+        path: /etc/gdm3/custom.conf
+        regexp: "^AutomaticLoginEnable ="
+        line: "AutomaticLoginEnable = true"
+        insertbefore: "^#?AutomaticLogin ="
+      become: true
+  when:
+    - system_auto_login_on_boot
+    - gdm_custom_conf.stat.exists

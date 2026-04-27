@@ -1,21 +1,19 @@
 ---
 - name: Workstation playbook
-  hosts: all
+  hosts: workstation
   become: true
 
   roles:
     - role: geerlingguy.docker
-      tags:
-        - docker
-        - install
-
-    - role: rust_install
-      tags:
-        - rust
-        - install
-
+      tags: A
     - role: system
+      tags: B
+    - role: dotfiles
+      tags: C
+    - role: rust_install
+      tags: D
 
   tasks:
     - name: Blocklist domains
       ansible.builtin.import_tasks: tasks/hosts_blocklist.yml
+      tags: E

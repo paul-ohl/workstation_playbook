@@ -14,5 +14,5 @@
   become_user: "{{ username }}"
 
 - name: Clone and stow the dotfiles
-  ansible.builtin.import_tasks: folder_managing.yml
+  ansible.builtin.import_tasks: clone_stow.yml
   when: not dotfiles_directory.stat.exists

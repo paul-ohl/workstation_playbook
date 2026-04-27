@@ -1,3 +1,9 @@
+- name: Install rust dependencies
+  ansible.builtin.package:
+    name: "{{ rust_install_dependencies }}"
+    state: present
+  become: true
+
 - name: Check if cargo is installed
   ansible.builtin.stat:
     path: "/home/{{ username }}/.cargo/bin/cargo"
@@ -8,7 +14,9 @@
   when: not rust_install_cargo_exists.stat.exists
 
 - name: Install sccache
-  ansible.builtin.include_tasks: install-sccache.yml
+  community.general.cargo:
+    name: sccache
+    state: latest
   when: rust_install_use_sccache
 
 - name: Install mold

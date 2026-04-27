@@ -2,9 +2,14 @@
 
 username: astro
 shell: /usr/bin/zsh
+system_make_user_sudo: true
+# passwordless computer, use at your own risk!
+system_auto_login_on_boot: true
+system_passwordless_sudo: true
 
 # The URL at which to get the dotfiles
 dotfiles_url: "git@github.com:paul-ohl/dotfiles.git"
+# dotfiles_url: "https://github.com/paul-ohl/dotfiles.git"
 
 # Which directories to stow in the dotfiles repo
 # This will also determine whether some software is installed or not
@@ -19,9 +24,6 @@ stowed_directories:
   - rust
   - tmux
   - zsh
-
-# Install QEMU
-qemu_install: false
 
 packages:
   - alacritty
@@ -54,7 +56,6 @@ packages:
   - picard
   - protonup-qt
   - ripgrep
-  - ripgrep
   - steam
   - stow
   - tmux
@@ -72,24 +73,6 @@ cargo_packages:
   - cargo-nextest
   - cargo-update
   - sqlx-cli
-
-flatpak_packages:
-  # - org.audacityteam.Audacity
-  # - org.blender.Blender
-  - com.spotify.Client
-  - com.discordapp.Discord
-  # - org.filezillaproject.Filezilla
-  # - org.gimp.GIMP
-  # - org.kde.kdenlive
-  - md.obsidian.Obsidian
-  # - com.getpostman.Postman
-  - org.qbittorrent.qBittorrent
-  # - com.slack.Slack
-  # - com.valvesoftware.Steam
-  # - com.github.IsmaelMartinez.teams_for_linux
-  # - com.github.micahflee.torbrowser-launcher
-  - org.videolan.VLC
-  # - us.zoom.Zoom
 
 # A list of domains to block using the `/etc/hosts` file
 blocked_domains:

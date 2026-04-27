@@ -1,3 +1,6 @@
 ---
-- name: Include device tasks
-  ansible.builtin.include_tasks: device.yml
+- name: Include update & install tasks
+  ansible.builtin.include_tasks: update_install.yml
+
+- name: Include user setup tasks
+  ansible.builtin.include_tasks: user_setup.yml

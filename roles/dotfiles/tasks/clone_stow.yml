@@ -23,14 +23,3 @@
   ansible.builtin.command: "stow -d /home/{{ username }}/dotfiles --verbose=2 {{ item }}"
   register: dotfiles_result
   changed_when: 'dotfiles_result.stderr is search("LINK: ")'
-
-- name: Create the uinput group if it doesn't exist
-  ansible.builtin.group:
-    name: uinput
-    state: present
-
-- name: Add user to uinput group
-  ansible.builtin.user:
-    name: "{{ username }}"
-    groups: uinput
-    append: yes
