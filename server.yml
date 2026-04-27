@@ -1,0 +1,13 @@
+---
+# SSH juggle port will try to connect with the configured
+# user and root.
+- hosts: servers
+  gather_facts: no
+  pre_tasks:
+      - import_tasks: tasks/ssh_juggle_port.yml
+        tags:
+            - always
+            - port
+
+# Do the rest of the setup here.
+
