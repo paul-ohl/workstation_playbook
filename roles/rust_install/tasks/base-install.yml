@@ -9,6 +9,10 @@
   ansible.builtin.command: /tmp/sh.rustup.rs -y
   changed_when: false
 
+- name: Set default toolchain
+  ansible.builtin.command: "/home/{{ username }}/.cargo/bin/rustup default stable"
+  changed_when: false
+
 - name: Update rust toolchain
   ansible.builtin.command: "/home/{{ username }}/.cargo/bin/rustup update"
   register: rust_install_result_update

@@ -1,3 +1,2 @@
 rust_install_packages: []
-rust_install_use_sccache: true
 rust_install_use_mold: true
