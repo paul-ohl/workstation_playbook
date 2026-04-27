@@ -25,34 +25,52 @@ qemu_install: false
 
 packages:
   - alacritty
+  - bat
+  - beeper-v4-bin
+  - btop
   - curl
-  - flatpak
+  - discord
+  - dolphin
+  - du-dust
+  - duf
+  - dunst
+  - exa
+  - fastfetch
+  - feishin
+  - firefox
   - fzf
   - git
   - httpie
+  - hyprlock
   - kitty
-  - lld
+  - lazygit
+  - lutris
   - neovim
   - nodejs
+  - npm
+  - obsidian
+  - opencode
   - openssl
-  - pkg-config
+  - picard
+  - protonup-qt
+  - ripgrep
+  - ripgrep
+  - steam
   - stow
   - tmux
   - unzip
   - vim
+  - vlc
+  - vlc-plugins-all
+  - waybar
   - wget
+  - wofi
   - zsh
 
 cargo_packages:
   - bacon
-  - bat
   - cargo-nextest
   - cargo-update
-  - cargo-watch
-  - du-dust
-  - exa
-  - kanata
-  - ripgrep
   - sqlx-cli
 
 flatpak_packages:
